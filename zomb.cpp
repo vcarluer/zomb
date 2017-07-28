@@ -1,5 +1,7 @@
 #include <ncurses.h>
 #include <ctime>
+#include <cstring>
+#include "title.h"
 
 using namespace std;
 
@@ -15,11 +17,15 @@ int main() {
 	initscr();
 	cbreak();
 	noecho();
-	nodelay(stdscr, TRUE);
+	// nodelay(stdscr, TRUE);
 	keypad(stdscr, TRUE);
 
-	bool cont = true;
-	mvprintw(LINES / 2, COLS/ 2, "huhu (press q)");
+	Title *t = new Title();
+	t->show();
+
+/*	bool cont = true;
+	const char *info = "huhu (press q)";
+	mvprintw((LINES - 1) / 2, COLS/ 2 - strlen(info) / 2, info);
 	int xPos = 0;
 	clock_t start = clock();
 	while (cont) {
@@ -31,8 +37,7 @@ int main() {
 			double diff = diffclock(current, start);
 			if (diff >= 1000) {
 				erase();
-				char *info = "huhu (press q)";
-				mvprintw(LINES / 2, COLS/ 2 - info.length() / 2, info);
+				mvprintw((LINES - 1) / 2, COLS/ 2 - strlen(info) / 2, info);
 				start = clock();
 				mvaddch(0, xPos, '.');
 				xPos++;
@@ -44,7 +49,7 @@ int main() {
 		
 		refresh();
 	}
-	
+*/	
 	endwin();
 	return 0;
 }
