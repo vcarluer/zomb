@@ -1,5 +1,3 @@
-class Player {
-	public:
-		int x;
-		int y;
+#include "gameitem.h"
+class Player: public GameItem {
 };
