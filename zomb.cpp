@@ -2,6 +2,7 @@
 #include <ctime>
 #include <cstring>
 #include "title.h"
+#include "game.h"
 
 using namespace std;
 
@@ -17,11 +18,13 @@ int main() {
 	initscr();
 	cbreak();
 	noecho();
-	// nodelay(stdscr, TRUE);
 	keypad(stdscr, TRUE);
 
-	Title *t = new Title();
-	t->show();
+	Title t;
+	t.show();
+
+	Game g;
+	g.play();
 
 /*	bool cont = true;
 	const char *info = "huhu (press q)";

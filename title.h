@@ -1,7 +1,7 @@
 class Title {
 	public:
-	void show();
+		void show();
 	private:
-	static int getCenterX(const char*);
+		static int getCenterX(const char*);
 };
 
