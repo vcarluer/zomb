@@ -19,7 +19,7 @@ void GameItem::moveTo(int newX, int newY, GameItem *map[999][999]) {
 	bool authorizedMove = true;
 	GameItem *contactItem = map[newX][newY];
 	if (contactItem != NULL && contactItem != this) {
-		contactItem->contact(this);
+		// contactItem->contact(this);
 		this->contact(contactItem);
 		authorizedMove = !(contactItem->isBlocking());
 	} 
@@ -36,22 +36,24 @@ void GameItem::move(char dirMove, GameItem *map[999][999]) {
 	int newX = x;
 	int newY = y;
 
-	switch(dirMove) {
-		case 'd':
-			newX++;
-			break;
-		case 'q':
-			newX--;
-			break;
-		case 'z':
-			newY--;
-			break;
-		case 's':
-			newY++;
-			break;
-	}
+	if (!dead) {
+		switch(dirMove) {
+			case 'd':
+				newX++;
+				break;
+			case 'q':
+				newX--;
+				break;
+			case 'z':
+				newY--;
+				break;
+			case 's':
+				newY++;
+				break;
+		}
 
-	moveTo(newX, newY, map);
+		moveTo(newX, newY, map);
+	}
 }
 
 int GameItem::getX() {
