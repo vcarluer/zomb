@@ -1,5 +1,6 @@
 #ifndef GAMEITEM_H
 #define GAMEITEM_H
+
 class GameItem {
 	public:
 		GameItem();
@@ -11,7 +12,7 @@ class GameItem {
 		int getHp();
 		virtual void contact(GameItem*);
 		virtual void hit(int);
-		virtual void delta(double, GameItem * [999][999]);
+		virtual void delta(double, GameItem * [999][999], GameItem);
 		void print();
 		bool isBlocking();
 	protected:

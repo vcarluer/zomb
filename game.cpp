@@ -27,7 +27,7 @@ void Game::play() {
 		}
 
 		p.move(input, map);
-		z.delta(delta, map);
+		z.delta(delta, map, p);
 
 		erase();
 

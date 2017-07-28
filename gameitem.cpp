@@ -2,7 +2,6 @@
 #include <ncurses.h>
 #include "gameitem.h"
 
-
 GameItem::GameItem() {
 	x = 0;
 	y = 1;
@@ -80,7 +79,7 @@ void GameItem::hit(int damage) {
 	}
 }
 
-void GameItem::delta(double deltaValue, GameItem *map [999][999]) {
+void GameItem::delta(double deltaValue, GameItem *map [999][999], GameItem player) {
 	deltaSum += deltaValue;
 	if (speed > 0 && deltaSum / 1000 >= speed) {
 		nodelay(stdscr, TRUE);
