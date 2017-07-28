@@ -3,14 +3,17 @@
 class GameItem {
 	public:
 		GameItem();
-		virtual void move(int, int);
+		virtual void move(char, GameItem * [999][999]);
+		virtual void moveTo(int, int, GameItem * [999][999]);
 		int getX();
 		int getY();
 		int getDirection();
-		virtual void contact(GameItem);
+		int getHp();
+		virtual void contact(GameItem*);
 		virtual void hit(int);
-		virtual void delta(double);
+		virtual void delta(double, GameItem * [999][999]);
 		void print();
+		bool isBlocking();
 	protected:
 		virtual void kill();
 		int x;
@@ -18,7 +21,10 @@ class GameItem {
 		char direction;
 		int speed;
 		int hp;
+		int power;
 		char symbol;
 		double deltaSum;
+		bool dead;
+		bool trigger;
 };
 #endif
