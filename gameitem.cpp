@@ -35,7 +35,7 @@ void GameItem::moveTo(int newX, int newY, GameItem *map[999][999]) {
 }
 
 void GameItem::move(char dirMove, GameItem *map[999][999]) {
-	if (dirMove != ERR) {
+	if (dirMove == 'd' || dirMove == 'q' || dirMove == 'z' || dirMove == 's') {
 		int newX = x;
 		int newY = y;
 

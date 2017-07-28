@@ -56,10 +56,13 @@ void Game::play() {
 		//mvprintw(2, 0, "items: %d", itemCount);
 		for(forI = 0; forI < itemCount;forI++) {
 			GameItem *item = items[forI];
-			/*mvprintw(forI + 3, 0, "name: %s", item->getName());
-			mvprintw(forI + 3, 15, "x: %d", item->getX());
-			mvprintw(forI + 3, 25, "y: %d", item->getY());
-			mvprintw(forI + 3, 35, "direction: %c", item->getDirection());*/
+/*			if (forI < 2) {
+				mvprintw(forI + 3, 0, "name: %s", item->getName());
+				mvprintw(forI + 3, 15, "x: %d", item->getX());
+				mvprintw(forI + 3, 25, "y: %d", item->getY());
+				mvprintw(forI + 3, 35, "direction: %c", item->getDirection());
+			}
+*/
 			if (!item->isIgnore()) {
 				item->print();
 			}
