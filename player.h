@@ -6,5 +6,6 @@ class Player: public GameItem {
 	public:
 		Player();
 		virtual void kill();
+		void shoot();
 };
 #endif

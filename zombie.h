@@ -6,4 +6,5 @@ class Zombie:public GameItem {
 		Zombie();
 		virtual void contact(GameItem *);
 		virtual void delta(double, GameItem * [999][999], GameItem);
+		virtual void kill();
 };

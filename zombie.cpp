@@ -2,10 +2,11 @@
 #include "zombie.h"
 
 Zombie::Zombie() {
-	symbol = 'z';
+	symbol = 'Z';
 	speed = 1;
 	hp = 10;
 	power = 10;
+	name = "Zombie";
 }
 
 void Zombie::contact(GameItem *contactItem) {
@@ -30,4 +31,9 @@ void Zombie::delta(double delta, GameItem *map [999][999], GameItem player) {
 	}
 
 	GameItem::delta(delta, map, player);
+}
+
+void Zombie::kill() {
+	GameItem::kill();
+	symbol = 'x';
 }

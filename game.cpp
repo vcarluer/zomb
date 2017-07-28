@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <ncurses.h>
 #include <ctime>
 #include "game.h"
@@ -8,17 +9,15 @@ void Game::play() {
 	nodelay(stdscr, TRUE);
 	char input;
 
-	GameItem *map [999][999];
-	GameItem items [2];
+	itemCount = 0;
 	Player p;
-	p.moveTo(0,5, map);
-	items[0] = p;
+	this->addItem(&p, 0, 5);
 	Zombie z;
-	z.moveTo(1,6, map);
-	items[1] = z;
+	this->addItem(&z, 1, 6);
 
 	clock_t start, current = clock();
 	double delta = 0;
+	int forI = 0;
 	while (true) {
 		start = clock();
 		input = getch();
@@ -26,15 +25,36 @@ void Game::play() {
 			break;
 		}
 
+		if (input == 'k') {
+			p.shoot();
+		}
+
 		p.move(input, map);
-		z.delta(delta, map, p);
+
+		for(forI = 0; forI < itemCount;forI++) {
+			GameItem *item = items[forI];
+			if (!item->isIgnore()) {
+				item->delta(delta, map, p);
+			}
+		}
 
 		erase();
 
 		mvprintw(0, 0, "ZOMB!!! (press u to quit. zqsd to move)");
 		mvprintw(1, 0, "HP: %d", p.getHp());
-		p.print();
-		z.print();
+		GameItem *ti = items[itemCount - 1];
+		mvprintw(2, 0, "items: %d", itemCount);
+		for(forI = 0; forI < itemCount;forI++) {
+			GameItem *item = items[forI];
+			mvprintw(forI + 3, 0, "name: %s", item->getName());
+			mvprintw(forI + 3, 15, "x: %d", item->getX());
+			mvprintw(forI + 3, 25, "y: %d", item->getY());
+			mvprintw(forI + 3, 35, "direction: %c", item->getDirection());
+			if (!item->isIgnore()) {
+				item->print();
+			}
+		}
+
 		refresh();
 		current = clock();
 		delta = diffclock(current, start);
@@ -48,3 +68,19 @@ double Game::diffclock(clock_t clock1,clock_t clock2)
 	return diffms;
 }
 
+void Game::addItem(GameItem *gameItem, int x, int y) {
+	items[itemCount] = gameItem;
+	gameItem->moveTo(x, y, map);
+	gameItem->setGame(this, itemCount);
+	itemCount++;
+}
+
+void Game::removeItem(int idx) {
+	/*GameItem *toDelete = items[idx];
+	if (toDelete != NULL) {
+		items[idx] = NULL;
+		map[toDelete->getX()][toDelete->getY()] = NULL;
+		delete toDelete;
+	}
+	*/
+}

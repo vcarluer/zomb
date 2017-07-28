@@ -6,6 +6,8 @@ GameItem::GameItem() {
 	x = 0;
 	y = 1;
 	direction = 'd';
+	name = "GameItem";
+	ignoreMe = false;
 }
 
 void GameItem::moveTo(int newX, int newY, GameItem *map[999][999]) {
@@ -33,26 +35,29 @@ void GameItem::moveTo(int newX, int newY, GameItem *map[999][999]) {
 }
 
 void GameItem::move(char dirMove, GameItem *map[999][999]) {
-	int newX = x;
-	int newY = y;
+	if (dirMove != ERR) {
+		int newX = x;
+		int newY = y;
 
-	if (!dead) {
-		switch(dirMove) {
-			case 'd':
-				newX++;
-				break;
-			case 'q':
-				newX--;
-				break;
-			case 'z':
-				newY--;
-				break;
-			case 's':
-				newY++;
-				break;
+		direction = dirMove;
+		if (!dead) {
+			switch(dirMove) {
+				case 'd':
+					newX++;
+					break;
+				case 'q':
+					newX--;
+					break;
+				case 'z':
+					newY--;
+					break;
+				case 's':
+					newY++;
+					break;
+			}
+
+			moveTo(newX, newY, map);
 		}
-
-		moveTo(newX, newY, map);
 	}
 }
 
@@ -66,6 +71,10 @@ int GameItem::getY() {
 
 int GameItem::getDirection() {
 	return direction;
+}
+
+void GameItem::setDirection(char newDirection) {
+	direction = newDirection;
 }
 
 void GameItem::contact(GameItem *contactItem) {
@@ -103,5 +112,18 @@ int GameItem::getHp() {
 }
 
 bool GameItem::isBlocking() {
-	return !(trigger || dead);
+	return !(trigger || dead || ignoreMe);
+}
+
+void GameItem::setGame(Game *newGame, int idx) {
+	game = newGame;
+	index = idx;
+}
+
+const char* GameItem::getName() {
+	return name;
+}
+
+bool GameItem::isIgnore() {
+	return ignoreMe;
 }
