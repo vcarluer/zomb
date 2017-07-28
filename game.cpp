@@ -1,6 +1,10 @@
 #include <cstddef>
 #include <ncurses.h>
 #include <ctime>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
 #include "game.h"
 #include "player.h"
 #include "zombie.h"
@@ -12,8 +16,14 @@ void Game::play() {
 	itemCount = 0;
 	Player p;
 	this->addItem(&p, 0, 5);
-	Zombie z;
-	this->addItem(&z, 1, 6);
+	srand ( time(NULL) );
+	int zx, zy;
+	for (int zc = 0; zc < 70; zc++) {
+		zx = rand() % COLS;
+		zy = (rand() % (LINES - 3)) + 3;
+		Zombie *z = new Zombie();
+		this->addItem(z, zx, zy);
+	}
 
 	clock_t start, current = clock();
 	double delta = 0;
@@ -43,13 +53,13 @@ void Game::play() {
 		mvprintw(0, 0, "ZOMB!!! (press u to quit. zqsd to move)");
 		mvprintw(1, 0, "HP: %d", p.getHp());
 		GameItem *ti = items[itemCount - 1];
-		mvprintw(2, 0, "items: %d", itemCount);
+		//mvprintw(2, 0, "items: %d", itemCount);
 		for(forI = 0; forI < itemCount;forI++) {
 			GameItem *item = items[forI];
-			mvprintw(forI + 3, 0, "name: %s", item->getName());
+			/*mvprintw(forI + 3, 0, "name: %s", item->getName());
 			mvprintw(forI + 3, 15, "x: %d", item->getX());
 			mvprintw(forI + 3, 25, "y: %d", item->getY());
-			mvprintw(forI + 3, 35, "direction: %c", item->getDirection());
+			mvprintw(forI + 3, 35, "direction: %c", item->getDirection());*/
 			if (!item->isIgnore()) {
 				item->print();
 			}
