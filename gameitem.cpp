@@ -1,9 +1,10 @@
+#include <ncurses.h>
 #include "gameitem.h"
 
 
 GameItem::GameItem() {
 	x = 0;
-	y = 0;
+	y = 1;
 	direction = 'd';
 }
 
@@ -31,9 +32,37 @@ void GameItem::hit(int damage) {
 	hp -= damage;
 }
 
-void GameItem::delta(double) {
+void GameItem::delta(double deltaValue) {
+	deltaSum += deltaValue;
+	if (speed != 0 && deltaSum / 1000 >= speed) {
+		int newX = x;
+		int newY = y;
 
+		switch(direction) {
+			case 'd':
+				newX++;
+				break;
+			case 'q':
+				newX--;
+				break;
+			case 'z':
+				newY--;
+				break;
+			case 's':
+				newY++;
+				break;
+		}
+
+		x = newX;
+		y = newY;
+		deltaSum = 0;
+	}
 }
+
 void GameItem::kill() {
 
+}
+
+void GameItem::print() {
+	mvaddch(y, x, symbol);
 }

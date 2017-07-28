@@ -1,3 +1,5 @@
+#ifndef GAMEITEM_H
+#define GAMEITEM_H
 class GameItem {
 	public:
 		GameItem();
@@ -8,6 +10,7 @@ class GameItem {
 		virtual void contact(GameItem);
 		virtual void hit(int);
 		virtual void delta(double);
+		void print();
 	protected:
 		virtual void kill();
 		int x;
@@ -15,4 +18,7 @@ class GameItem {
 		char direction;
 		int speed;
 		int hp;
+		char symbol;
+		double deltaSum;
 };
+#endif

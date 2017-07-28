@@ -2,14 +2,17 @@
 #include <ctime>
 #include "game.h"
 #include "player.h"
+#include "zombie.h"
 
 void Game::play() {
 	nodelay(stdscr, TRUE);
 	char input;
 
 	Player p;
-	int newX = 5;
-	int newY = 5;
+	Zombie z;
+
+	int newX = p.getX();
+	int newY = p.getY();
 	int headerH = 1;
 	clock_t start, current = clock();
 	double delta = 0;
@@ -21,6 +24,9 @@ void Game::play() {
 		if (input == 'u') {
 			break;
 		}
+
+		newX = p.getX();
+		newY = p.getY();
 
 		switch(input) {
 			case 'd':
@@ -41,12 +47,15 @@ void Game::play() {
 		if (newX > COLS - 1) { newX = COLS - 1; }
 		if (newY < headerH) { newY = headerH; }
 		if (newY > LINES - 1) { newY = LINES - 1; }
+
 		p.move(newX, newY);
+		z.delta(delta);
 
 		erase();
 
 		mvprintw(0, 0, "ZOMB!!! (press u to quit. zqsd to move)");
-		mvaddch(p.getY(), p.getX(), '@');
+		p.print();
+		z.print();
 		refresh();
 	}
 }
